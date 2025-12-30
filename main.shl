@@ -107,7 +107,7 @@ on request to "/download"
             footer
 
 on request to "/contact"
-    if request.method == "POST"
+    if REQUEST_METHOD == "POST"
         # Save message
         ts = today
         db exec "INSERT INTO messages (name, email, message, timestamp) VALUES (?, ?, ?, ?)" name email message ts
@@ -162,9 +162,9 @@ on request to "/compiler"
     code_val = 'say "Hello World"'
     output_val = "Ready..."
     
-    if request.method == "POST"
+    if REQUEST_METHOD == "POST"
         # SSR Logic: Handle form submission
-        code_val = request.form["code"]
+        code_val = code
         
         # Run code safely
         fname = "temp_" + time.now() + ".shl"
