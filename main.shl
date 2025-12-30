@@ -139,7 +139,13 @@ on request to "/contact"
                     navbar
                     div class="form-box"
                         h1 "Contact Us"
-                        p "Have questions? Send us a message."
+                        p "To help in the development, please contact "
+                            strong "Shrey Naithani"
+                            " at "
+                            a "contact@shelllite.tech" href="mailto:contact@shelllite.tech"
+                        br
+                        br
+                        p "Have questions? Send us a message below."
                         
                         form action="/contact" method="POST"
                             div class="form-group"
