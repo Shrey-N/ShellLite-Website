@@ -19,6 +19,7 @@ to navbar
                 a "Docs" href="/docs"
                 a "GitHub" href="https://github.com/Shrey-N/ShellLite"
                 a "Contact" href="/contact"
+                a "Compiler" href="/compiler"
                 a "Download" href="/download" class="btn btn-outline" style="margin-left: 20px"
 
 to footer
@@ -92,7 +93,7 @@ on request to "/download"
         head
             title "Download ShellLite"
             style
-                read file "website/assets/style.css"
+                read file "assets/style.css"
         body
             div class="container"
                 navbar
@@ -106,7 +107,7 @@ on request to "/download"
             footer
 
 on request to "/contact"
-    if REQUEST_METHOD == "POST"
+    if request.method == "POST"
         # Save message
         ts = today
         db exec "INSERT INTO messages (name, email, message, timestamp) VALUES (?, ?, ?, ?)" name email message ts
@@ -115,7 +116,7 @@ on request to "/contact"
             head
                 title "Message Sent"
                 style
-                    read file "website/assets/style.css"
+                    read file "assets/style.css"
             body
                 div class="container"
                     navbar
@@ -132,7 +133,7 @@ on request to "/contact"
             head
                 title "Contact Us"
                 style
-                    read file "website/assets/style.css"
+                    read file "assets/style.css"
             body
                 div class="container"
                     navbar
@@ -157,6 +158,59 @@ on request to "/contact"
                             
                 footer
 
+on request to "/compiler"
+    code_val = 'say "Hello World"'
+    output_val = "Ready..."
+    
+    if request.method == "POST"
+        # SSR Logic: Handle form submission
+        code_val = request.form["code"]
+        
+        # Run code safely
+        fname = "temp_" + time.now() + ".shl"
+        write code_val to file fname
+        
+        # Execute
+        cmd = "shl " + fname
+        # run built-in returns stdout string
+        # We need to catch errors? built-in run captures stdout/stderr usually?
+        # Interpreter implementation says: raises exception on fail? No, returns stdout.
+        # Let's assume it returns output.
+        
+        try
+             output_val = run cmd
+        catch e
+             output_val = "Error: " + e
+             
+        delete fname
+        
+    html lang="en"
+        head
+            title "Online ShellLite Compiler"
+            style
+                read file "assets/style.css"
+            style
+                read file "assets/compiler.css"
+        body
+            div class="container"
+                navbar
+                div class="compiler-box"
+                    h1 "Online ShellLite Compiler"
+                    p "Write and run ShellLite code directly from your browser."
+                    
+                    form action="/compiler" method="POST"
+                        div class="editor-container"
+                            textarea id="code" name="code" placeholder="Type your ShellLite code here..." code_val
+                            
+                            div class="output-container"
+                                h3 "Output"
+                                pre id="output" output_val
+                                
+                        div style="text-align: left"
+                            button "Run Code" id="run-btn" class="btn" type="submit"
+            footer
+
+
 on request to "/docs"
     html lang="en"
         head
@@ -164,7 +218,7 @@ on request to "/docs"
             meta charset="utf-8"
             link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Fira+Code&display=swap"
             style
-                read file "website/assets/style.css"
+                read file "assets/style.css"
         body
             navbar
             

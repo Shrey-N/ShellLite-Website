@@ -1,0 +1,137 @@
+/* Compiler Specific Styles */
+.compiler-box {
+    background: #1e1e1e;
+    border: none;
+    border-radius: 8px;
+    padding: 24px;
+    margin: 40px auto;
+    max-width: 1200px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    text-align: left;
+}
+
+.compiler-box h1 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    color: #e5e5e5;
+    background: none;
+    -webkit-text-fill-color: initial;
+    font-weight: 600;
+}
+
+.compiler-box p {
+    color: #a3a3a3;
+    margin-bottom: 24px;
+    font-size: 1rem;
+}
+
+.editor-container {
+    display: flex;
+    gap: 0;
+    margin: 0;
+    text-align: left;
+    height: 600px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+#code {
+    flex: 1;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border: none;
+    border-right: 1px solid #333;
+    border-radius: 0;
+    padding: 20px;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    resize: none;
+    line-height: 1.6;
+    outline: none;
+    transition: none;
+}
+
+#code:focus {
+    border-color: #333;
+}
+
+.output-container {
+    flex: 1;
+    background: #1e1e1e;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.output-container h3 {
+    margin: 0;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    color: #a3a3a3;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: #252526;
+    border-bottom: 1px solid #333;
+    font-weight: 600;
+}
+
+#output {
+    flex: 1;
+    margin: 0;
+    padding: 16px;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    color: #e5e5e5;
+    white-space: pre-wrap;
+    overflow-y: auto;
+    background: #1e1e1e;
+}
+
+#run-btn {
+    margin-top: 16px;
+    padding: 10px 24px;
+    font-size: 0.95rem;
+    background: #007acc;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#run-btn:hover {
+    background: #0062a3;
+    transform: none;
+}
+
+#run-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background: #007acc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .editor-container {
+        flex-direction: column;
+        height: auto;
+        border: 1px solid #333;
+    }
+
+    #code {
+        border-right: none;
+        border-bottom: 1px solid #333;
+        height: 300px;
+    }
+
+    .output-container {
+        height: 300px;
+    }
+}
