@@ -67,9 +67,7 @@ on request to "/"
             
             main class="container"
                 section class="hero"
-                    h1 
-                        "Automation logic for " 
-                        span "Humans"
+                    h1 "Code that reads like you think."
                     p "Build file systems, web apps, and system automations in plain English. No semicolons, no boilerplate."
                     div
                         a "Download Now" href="/download" class="btn"
