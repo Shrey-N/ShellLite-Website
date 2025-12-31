@@ -29,7 +29,7 @@ to footer
             p style="font-size: 0.8rem; opacity: 0.7; margin-top: 10px"
                 "Made using "
                 strong "ShellLite"
-                " v0.04"
+                " v0.03.3"
 
 
 to docs_sidebar
@@ -184,7 +184,12 @@ on request to "/compiler"
         # Let's assume it returns output.
         
         try
-             output_val = run cmd
+             cmd_redirect = cmd + " > " + fname + ".out 2>&1"
+             run cmd_redirect
+             output_val = read file fname + ".out"
+             
+             # cleanup
+             delete fname + ".out"
         catch e
              output_val = "Error: " + e
              
