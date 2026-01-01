@@ -168,33 +168,165 @@ nav {
     margin-bottom: 16px;
 }
 
-/* Footer & Badge */
-footer {
-    text-align: center;
-    padding: 80px 0 40px;
-    color: var(--text-muted);
-    border-top: 1px solid var(--border);
-    margin-top: 80px;
+/* Documentation Layout */
+.docs-container {
+    display: flex;
+    gap: 60px;
+    padding: 60px 0;
+    align-items: flex-start;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-.made-with-badge {
-    display: inline-block;
-    margin-top: 24px;
-    padding: 8px 20px;
-    background: rgba(56, 189, 248, 0.1);
-    border: 1px solid rgba(56, 189, 248, 0.2);
-    border-radius: 99px;
-    color: var(--primary);
-    font-size: 0.9rem;
-    font-weight: 500;
+/* Sidebar */
+.docs-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 100px;
+    background: rgba(24, 24, 27, 0.4);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    padding: 32px;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+    backdrop-filter: blur(20px);
 }
 
-.made-with-badge strong {
+.docs-sidebar h4 {
     color: #fff;
+    margin: 0 0 24px 0;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     font-weight: 700;
+    opacity: 0.8;
 }
 
-/* Utilities */
+.docs-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.docs-sidebar li {
+    margin-bottom: 8px;
+}
+
+.docs-sidebar a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    display: block;
+    border-left: 2px solid transparent;
+}
+
+.docs-sidebar a:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    border-left-color: var(--primary);
+    transform: translateX(4px);
+}
+
+/* Content Area */
+.docs-content {
+    flex: 1;
+    min-width: 0;
+    background: rgba(24, 24, 27, 0.2);
+    padding: 48px;
+    border-radius: 24px;
+    border: 1px solid var(--border);
+}
+
+.docs-content section {
+    margin-bottom: 80px;
+    scroll-margin-top: 120px;
+}
+
+.docs-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 32px;
+    color: #fff;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.docs-content h3 {
+    font-size: 1.5rem;
+    margin: 40px 0 20px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.docs-content p {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+/* Mac-style Code Windows */
+pre {
+    background: #0f172a;
+    padding: 0;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin: 32px 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+pre::before {
+    content: '● ● ●';
+    display: block;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--border);
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    line-height: 1;
+}
+
+code {
+    display: block;
+    padding: 24px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.95rem;
+    color: #e2e8f0;
+    overflow-x: auto;
+    white-space: pre;
+    line-height: 1.6;
+}
+
+.inline-code {
+    background: rgba(56, 189, 248, 0.1);
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    color: var(--primary);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9em;
+    display: inline;
+}
+
+/* Sidebar Scrollbar */
+.docs-sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.docs-sidebar::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
+}
+
+/* Forms & Utilities */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -225,15 +357,28 @@ h3 {
     margin-top: 0;
 }
 
-pre {
-    background: #000;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    overflow-x: auto;
+/* Footer & Badge */
+footer {
+    text-align: center;
+    padding: 80px 0 40px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 80px;
 }
 
-code {
-    color: var(--accent);
-    font-family: 'Fira Code', monospace;
+.made-with-badge {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 8px 20px;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 99px;
+    color: var(--primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.made-with-badge strong {
+    color: #fff;
+    font-weight: 700;
 }
