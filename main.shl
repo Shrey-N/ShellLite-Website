@@ -55,7 +55,7 @@ on request to "/"
                 section class="hero"
                     h1 "Code that reads like you think."
                     p "Build file systems, web apps, and system automations in plain English. No semicolons, no boilerplate."
-                    p style="color: #38bdf8; font-weight: bold; margin-top: 20px; font-size: 1.1rem" "★ This website is totally written in ShellLite v0.03.3 ★"
+                    p style="color: #38bdf8; font-weight: bold; margin-top: 20px; font-size: 1.1rem" "This website is totally written in ShellLite v0.03.3"
                     div
                         a "Download Now" href="/download" class="btn"
                         a "View Documentation" href="/docs" class="btn btn-outline" style="margin-left: 15px"
@@ -89,8 +89,7 @@ on request to "/download"
             footer
 on request to "/contact"
     if REQUEST_METHOD == "POST"
-        ts = time.now()
-        db exec "INSERT INTO messages (name, email, message, timestamp) VALUES (?, ?, ?, ?)" name email message ts
+        db exec "INSERT INTO messages (name, email, message, timestamp) VALUES (?, ?, ?, datetime('now'))" name email message
         html lang="en"
             head
                 title "Message Sent"
@@ -98,13 +97,13 @@ on request to "/contact"
                     read file "assets/style.css"
             body
                 div class="container"
-                    navbar
-                    div class="download-box"
-                        h1 "Message Sent!"
-                        p "Thank you for contacting us. We will get back to you shortly."
-                        br
-                        a "Back to Home" href="/" class="btn"
-                    footer
+                navbar
+                div class="download-box"
+                    h1 "Message Sent!"
+                    p "Thank you for contacting us. We will get back to you shortly."
+                    br
+                    a "Back to Home" href="/" class="btn"
+                footer
     else
         html lang="en"
             head
@@ -113,34 +112,34 @@ on request to "/contact"
                     read file "assets/style.css"
             body
                 div class="container"
-                    navbar
-                    div class="form-box"
-                        h1 "Contact Us"
-                        p "To help in the development, please contact "
-                            strong "Shrey Naithani"
-                            " at "
-                            a "contact@shelllite.tech" href="mailto:contact@shelllite.tech"
-                        br
-                        br
-                        p "Have questions? Send us a message below."
-                        form action="/contact" method="POST"
-                            div class="form-group"
-                                label "Name"
-                                input type="text" name="name" required="true" placeholder="Your Name"
-                            div class="form-group"
-                                label "Email"
-                                input type="email" name="email" required="true" placeholder="john@example.com"
-                            div class="form-group"
-                                label "Message"
-                                textarea name="message" rows="5" required="true" placeholder="How can we help?"
-                            button "Send Message" type="submit" class="btn" style="width: 100%"
-                footer
+                navbar
+                div class="form-box"
+                    h1 "Contact Us"
+                    p "To help in the development, please contact "
+                        strong "Shrey Naithani"
+                        " at "
+                        a "contact@shelllite.tech" href="mailto:contact@shelllite.tech"
+                    br
+                    br
+                    p "Have questions? Send us a message below."
+                    form action="/contact" method="POST"
+                        div class="form-group"
+                            label "Name"
+                            input type="text" name="name" required="true" placeholder="Your Name"
+                        div class="form-group"
+                            label "Email"
+                            input type="email" name="email" required="true" placeholder="john@example.com"
+                        div class="form-group"
+                            label "Message"
+                            textarea name="message" rows="5" required="true" placeholder="How can we help?"
+                        button "Send Message" type="submit" class="btn" style="width: 100%"
+            footer
 on request to "/compiler"
     code_val = 'say "Hello World"'
     output_val = "Ready..."
     if REQUEST_METHOD == "POST"
         code_val = code
-        fname = "temp_" + time.now() + ".shl"
+        fname = "temp_" + str(time.time()) + ".shl"
         write code_val to file fname
         cmd = "shl " + fname
         try
