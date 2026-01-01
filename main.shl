@@ -1,15 +1,10 @@
 
-# ShellLite Official Website
-# Production Ready
 
-# Database Setup
 db open "website.db"
 db exec "CREATE TABLE IF NOT EXISTS messages (id INTEGER PRIMARY KEY, name TEXT, email TEXT, message TEXT, timestamp TEXT)"
 
-# Static Assets
 serve static "assets" at "/assets"
 
-# Components
 to navbar
     div class="container"
         nav
@@ -52,7 +47,6 @@ to docs_sidebar
                 li
                     a "Standard Library" href="#stdlib"
 
-# Routes
 on request to "/"
     html lang="en"
         head
@@ -106,7 +100,6 @@ on request to "/download"
 
 on request to "/contact"
     if REQUEST_METHOD == "POST"
-        # Save message
         ts = today
         db exec "INSERT INTO messages (name, email, message, timestamp) VALUES (?, ?, ?, ?)" name email message ts
         
@@ -126,7 +119,6 @@ on request to "/contact"
                     footer
                     
     else
-        # Show form
         html lang="en"
             head
                 title "Contact Us"
@@ -167,26 +159,18 @@ on request to "/compiler"
     output_val = "Ready..."
     
     if REQUEST_METHOD == "POST"
-        # SSR Logic: Handle form submission
         code_val = code
         
-        # Run code safely
         fname = "temp_" + time.now() + ".shl"
         write code_val to file fname
         
-        # Execute
         cmd = "shl " + fname
-        # run built-in returns stdout string
-        # We need to catch errors? built-in run captures stdout/stderr usually?
-        # Interpreter implementation says: raises exception on fail? No, returns stdout.
-        # Let's assume it returns output.
         
         try
              cmd_redirect = cmd + " > " + fname + ".out 2>&1"
              run cmd_redirect
              output_val = read file fname + ".out"
              
-             # cleanup
              delete fname + ".out"
         catch e
              output_val = "Error: " + e
@@ -298,7 +282,6 @@ on request to "/docs"
 
             footer
 
-# Configuration & Start
 p_env = env("PORT")
 server_port = int(p_env)
 if server_port == 0
