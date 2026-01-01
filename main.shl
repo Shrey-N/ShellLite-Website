@@ -146,14 +146,14 @@ on request to "/compiler"
         cmd = "python -m shell_lite " + fname + " > " + fname + ".out 2>&1"
         
         try
-             sys run cmd
+             run cmd
              output_val = read file fname + ".out"
-             sys run "del " + fname + ".out"
+             run "del " + fname + ".out"
         catch e
              output_val = "Error: " + e
              
         # Cleanup source file
-        sys run "del " + fname
+        run "del " + fname
         catch e
              output_val = "Error: " + e
         delete fname
