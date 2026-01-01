@@ -1,10 +1,6 @@
-
-
 db open "website.db"
 db exec "CREATE TABLE IF NOT EXISTS messages (id INTEGER PRIMARY KEY, name TEXT, email TEXT, message TEXT, timestamp TEXT)"
-
 serve static "assets" at "/assets"
-
 to navbar
     div class="container"
         nav
@@ -16,7 +12,6 @@ to navbar
                 a "Contact" href="/contact"
                 a "Compiler" href="/compiler"
                 a "Download" href="/download" class="btn btn-outline" style="margin-left: 20px"
-
 to footer
     footer
         div class="container"
@@ -25,8 +20,6 @@ to footer
                 "Made using "
                 strong "ShellLite"
                 " v0.03.3"
-
-
 to docs_sidebar
     aside class="docs-sidebar"
         h4 "Table of Contents"
@@ -46,7 +39,6 @@ to docs_sidebar
                     a "Database" href="#db"
                 li
                     a "Standard Library" href="#stdlib"
-
 on request to "/"
     html lang="en"
         head
@@ -58,7 +50,6 @@ on request to "/"
                 read file "assets/style.css"
         body
             navbar
-            
             main class="container"
                 section class="hero"
                     h1 "Code that reads like you think."
@@ -66,7 +57,6 @@ on request to "/"
                     div
                         a "Download Now" href="/download" class="btn"
                         a "View Documentation" href="/docs" class="btn btn-outline" style="margin-left: 15px"
-                        
                 section class="features"
                     div class="feature-card"
                         h3 "Natural Syntax"
@@ -77,9 +67,7 @@ on request to "/"
                     div class="feature-card"
                         h3 "Production Ready"
                         p "Built on a robust Python runtime with SQLite support, dynamic routing, and strict permission controls."
-
             footer
-
 on request to "/download"
     html lang="en"
         head
@@ -97,12 +85,10 @@ on request to "/download"
                     br
                     p style="margin-top: 20px; font-size: 0.9rem" "Also available on GitHub"
             footer
-
 on request to "/contact"
     if REQUEST_METHOD == "POST"
         ts = today
         db exec "INSERT INTO messages (name, email, message, timestamp) VALUES (?, ?, ?, ?)" name email message ts
-        
         html lang="en"
             head
                 title "Message Sent"
@@ -117,7 +103,6 @@ on request to "/contact"
                         br
                         a "Back to Home" href="/" class="btn"
                     footer
-                    
     else
         html lang="en"
             head
@@ -136,47 +121,34 @@ on request to "/contact"
                         br
                         br
                         p "Have questions? Send us a message below."
-                        
                         form action="/contact" method="POST"
                             div class="form-group"
                                 label "Name"
                                 input type="text" name="name" required="true" placeholder="Your Name"
-                            
                             div class="form-group"
                                 label "Email"
                                 input type="email" name="email" required="true" placeholder="john@example.com"
-                                
                             div class="form-group"
                                 label "Message"
                                 textarea name="message" rows="5" required="true" placeholder="How can we help?"
-                            
                             button "Send Message" type="submit" class="btn" style="width: 100%"
-                            
                 footer
-
 on request to "/compiler"
     code_val = 'say "Hello World"'
     output_val = "Ready..."
-    
     if REQUEST_METHOD == "POST"
         code_val = code
-        
         fname = "temp_" + time.now() + ".shl"
         write code_val to file fname
-        
         cmd = "shl " + fname
-        
         try
              cmd_redirect = cmd + " > " + fname + ".out 2>&1"
              run cmd_redirect
              output_val = read file fname + ".out"
-             
              delete fname + ".out"
         catch e
              output_val = "Error: " + e
-             
         delete fname
-        
     html lang="en"
         head
             title "Online ShellLite Compiler"
@@ -190,20 +162,15 @@ on request to "/compiler"
                 div class="compiler-box"
                     h1 "Online ShellLite Compiler"
                     p "Write and run ShellLite code directly from your browser."
-                    
                     form action="/compiler" method="POST"
                         div class="editor-container"
                             textarea id="code" name="code" placeholder="Type your ShellLite code here..." code_val
-                            
                             div class="output-container"
                                 h3 "Output"
                                 pre id="output" output_val
-                                
                         div style="text-align: left"
                             button "Run Code" id="run-btn" class="btn" type="submit"
             footer
-
-
 on request to "/docs"
     html lang="en"
         head
@@ -214,78 +181,62 @@ on request to "/docs"
                 read file "assets/style.css"
         body
             navbar
-            
             div class="container docs-container"
                 docs_sidebar
-                
                 main class="docs-content"
                     section id="intro"
                         h2 "Introduction"
                         p "ShellLite was built with a single philosophy: code should be readable by humans first, and machines second."
                         p "It strips away the curly braces, semicolons, and cryptic keywords of traditional languages, replacing them with natural English words."
-                    
                     section id="start"
                         h2 "Getting Started"
                         h3 "Installation"
                         p "You can download the Windows installer or use Python:"
                         pre
                             code "pip install shelllite"
-                        
                         h3 "Your First Program"
                         p "Create a file named hello.shl:"
                         pre
                             code 'say "Hello, World!"'
-                    
                     section id="basics"
                         h2 "Language Basics"
                         p "Variables use dynamic typing and clear syntax."
                         pre
                             code 'name = "Dev"\nscore = 100\nis_active = yes'
-                            
                         p "Lists and Dictionaries are intuitive:"
                         pre
                             code 'fruits = a list of "apple", "banana"\nuser = { name: "Dev", id: 1 }'
-                    
                     section id="control"
                         h2 "Control Flow"
                         p "Write logic the way you speak:"
                         pre
                             code 'if score is at least 90\n    say "Excellent!"\nelif score > 50\n    say "Good job"'
-                            
                         p "Loops are just as simple:"
                         pre
                             code 'repeat 3 times\n    say "Hip Hip Hooray!"'
-                            
                     section id="web"
                         h2 "Web Features"
                         p "ShellLite has a built-in web server with natural routing."
                         pre
                             code 'on request to "/hello"\n    html\n        h1 "Hello World"\n\nlisten on port 8080'
-
                     section id="db"
                         h2 "Database"
                         p "ShellLite includes native SQLite support."
                         pre
                             code 'db open "data.db"\ndb exec "CREATE TABLE users (name TEXT)"\ndb exec "INSERT INTO users (name) VALUES (?)" "Alice"\n\nusers = db query "SELECT * FROM users"\ndb close'
-
                     section id="stdlib"
                         h2 "Standard Library"
                         p "ShellLite comes with batteries included."
-                        
                         h3 "Math"
                         pre
                             code 'use "math"\nsay math.pi'
-                            
                         h3 "HTTP"
                         pre
                             code 'use "http"\ntext = http.get "https://google.com"'
-
             footer
-
 p_env = env("PORT")
 server_port = int(p_env)
 if server_port == 0
     server_port = 8080
-
 print "Starting ShellLite Server..."
 listen on port server_port
