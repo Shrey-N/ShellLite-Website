@@ -21,6 +21,27 @@ body {
         radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.08) 0%, transparent 25%),
         radial-gradient(circle at 85% 30%, rgba(192, 132, 252, 0.08) 0%, transparent 25%);
     background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensure main content expands to fill space */
+main,
+.docs-container {
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Fix Navbar overlap */
+nav {
+    flex-shrink: 0;
+}
+
+footer {
+    flex-shrink: 0;
+    margin-top: auto;
 }
 
 /* Navbar */
