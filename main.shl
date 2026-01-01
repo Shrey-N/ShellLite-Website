@@ -141,12 +141,19 @@ on request to "/compiler"
         code_val = code
         fname = "temp_" + str(time.time()) + ".shl"
         write code_val to file fname
-        cmd = "shl " + fname
+        
+        # Use python directly to bypass PATH issues
+        cmd = "python -m shell_lite " + fname + " > " + fname + ".out 2>&1"
+        
         try
-             cmd_redirect = cmd + " > " + fname + ".out 2>&1"
-             run cmd_redirect
+             sys run cmd
              output_val = read file fname + ".out"
-             delete fname + ".out"
+             sys run "del " + fname + ".out"
+        catch e
+             output_val = "Error: " + e
+             
+        # Cleanup source file
+        sys run "del " + fname
         catch e
              output_val = "Error: " + e
         delete fname
