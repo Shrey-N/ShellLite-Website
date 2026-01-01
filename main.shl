@@ -17,9 +17,9 @@ to footer
         div class="container"
             p "© 2025 ShellLite. All rights reserved."
             p style="font-size: 0.8rem; opacity: 0.7; margin-top: 10px"
-                "Made using "
+                "This website is entirely written in "
                 strong "ShellLite"
-                " v0.03.3"
+                " v0.04"
 to docs_sidebar
     aside class="docs-sidebar"
         h4 "Table of Contents"
@@ -193,7 +193,7 @@ on request to "/docs"
                         h3 "Installation"
                         p "You can download the Windows installer or use Python:"
                         pre
-                            code "pip install shelllite"
+                            code "pip install shell-lite"
                         h3 "Your First Program"
                         p "Create a file named hello.shl:"
                         pre

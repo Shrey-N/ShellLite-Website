@@ -33,18 +33,24 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 0;
+    padding: 16px 24px;
     border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(16px);
+    background: rgba(15, 23, 42, 0.4);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 800;
     background: var(--gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-decoration: none;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.04em;
+    filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.3));
 }
 
 .nav-links a {
