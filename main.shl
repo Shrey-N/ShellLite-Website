@@ -20,7 +20,7 @@ to footer
             p style="font-size: 0.8rem; opacity: 0.7; margin-top: 10px" class="made-with-badge"
                 "This website is entirely written in "
                 strong "ShellLite"
-                " v0.03.3"
+                " v0.03.4"
 to docs_sidebar
     aside class="docs-sidebar"
         h4 "Table of Contents"
@@ -53,34 +53,27 @@ on request to "/"
             navbar
             main class="container"
                 section class="hero"
-                    h1 "Code that reads like you think."
+                    h1 "Automation logic for Humans, Code like you think."
                     p "Build file systems, web apps, and system automations in plain English. No semicolons, no boilerplate."
-                    p style="color: #38bdf8; font-weight: bold; margin-top: 20px; font-size: 1.1rem" "This website is totally written in ShellLite v0.03.3"
+                    p style="color: #38bdf8; font-weight: bold; margin-top: 20px; font-size: 1.1rem" "btw this website was written using ShellLite"
                     div
                         a "Download Now" href="/download" class="btn"
                         a "View Documentation" href="/docs" class="btn btn-outline" style="margin-left: 15px"
-                section class="features"
-                    div class="feature-card"
-                        h3 "Natural Syntax"
-                        p "Write code that reads like English. ShellLite is designed for readability and speed."
-                    div class="feature-card"
-                        h3 "Web & System"
-                        p "Seamlessly switch between file operations, web serving, and desktop automation in one file."
-                    div class="feature-card"
-                        h3 "Production Ready"
-                        p "Built on a robust Python runtime with SQLite support, dynamic routing, and strict permission controls."
             footer
 on request to "/download"
     html lang="en"
         head
             title "Download ShellLite"
+            meta charset="utf-8"
+            meta name="viewport" content="width=device-width, initial-scale=1.0"
+            link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap"
             style
                 read file "assets/style.css"
         body
+            navbar
             div class="container"
-                navbar
                 div class="download-box"
-                    h1 "Download ShellLite v0.04"
+                    h1 "Download ShellLite v0.03.3"
                     p "Latest Stable Release for Windows 10/11 (64-bit)"
                     br
                     a "Download Installer (.exe)" href="/assets/shl_setup.exe" class="btn"
@@ -88,31 +81,17 @@ on request to "/download"
                     p style="margin-top: 20px; font-size: 0.9rem" "Also available on GitHub"
             footer
 on request to "/contact"
-    if REQUEST_METHOD == "POST"
-        db exec "INSERT INTO messages (name, email, message, timestamp) VALUES (?, ?, ?, datetime('now'))" name email message
-        html lang="en"
-            head
-                title "Message Sent"
-                style
-                    read file "assets/style.css"
-            body
-                div class="container"
-                navbar
-                div class="download-box"
-                    h1 "Message Sent!"
-                    p "Thank you for contacting us. We will get back to you shortly."
-                    br
-                    a "Back to Home" href="/" class="btn"
-                footer
-    else
-        html lang="en"
-            head
-                title "Contact Us"
-                style
-                    read file "assets/style.css"
-            body
-                div class="container"
-                navbar
+    html lang="en"
+        head
+            title "Contact Us"
+            meta charset="utf-8"
+            meta name="viewport" content="width=device-width, initial-scale=1.0"
+            link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap"
+            style
+                read file "assets/style.css"
+        body
+            navbar
+            div class="container"
                 div class="form-box"
                     h1 "Contact Us"
                     p "To help in the development, please contact "
@@ -122,7 +101,7 @@ on request to "/contact"
                     br
                     br
                     p "Have questions? Send us a message below."
-                    form action="/contact" method="POST"
+                    form action="mailto:contact@shelllite.tech" method="POST" enctype="text/plain"
                         div class="form-group"
                             label "Name"
                             input type="text" name="name" required="true" placeholder="Your Name"
@@ -131,53 +110,29 @@ on request to "/contact"
                             input type="email" name="email" required="true" placeholder="john@example.com"
                         div class="form-group"
                             label "Message"
-                            textarea name="message" rows="5" required="true" placeholder="How can we help?"
+                            textarea "" name="message" rows="5" required="true" placeholder="How can we help?"
                         button "Send Message" type="submit" class="btn" style="width: 100%"
             footer
 on request to "/compiler"
-    code_val = 'say "Hello World"'
-    output_val = "Ready..."
-    if REQUEST_METHOD == "POST"
-        code_val = code
-        fname = "temp_" + str(time.time()) + ".shl"
-        write code_val to file fname
-        
-        # Use python directly to bypass PATH issues
-        cmd = "python -m shell_lite " + fname + " > " + fname + ".out 2>&1"
-        
-        try
-             run cmd
-             output_val = read file fname + ".out"
-             run "del " + fname + ".out"
-        catch e
-             output_val = "Error: " + e
-             
-        # Cleanup source file
-        run "del " + fname
-        catch e
-             output_val = "Error: " + e
-        delete fname
     html lang="en"
         head
             title "Online ShellLite Compiler"
+            meta charset="utf-8"
+            meta name="viewport" content="width=device-width, initial-scale=1.0"
+            link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Fira+Code&display=swap"
             style
                 read file "assets/style.css"
             style
                 read file "assets/compiler.css"
         body
+            navbar
             div class="container"
-                navbar
                 div class="compiler-box"
                     h1 "Online ShellLite Compiler"
-                    p "Write and run ShellLite code directly from your browser."
-                    form action="/compiler" method="POST"
-                        div class="editor-container"
-                            textarea id="code" name="code" placeholder="Type your ShellLite code here..." code_val
-                            div class="output-container"
-                                h3 "Output"
-                                pre id="output" output_val
-                        div style="text-align: left"
-                            button "Run Code" id="run-btn" class="btn" type="submit"
+                    p "The online compiler is temporarily unavailable. Please download ShellLite to run code locally."
+                    br
+                    a "Download ShellLite" href="/download" class="btn"
+                    a "View Documentation" href="/docs" class="btn btn-outline" style="margin-left: 15px"
             footer
 on request to "/docs"
     html lang="en"

@@ -111,7 +111,7 @@ nav {
 
 /* Buttons */
 .btn {
-    background: var(--gradient);
+    background: var(--primary);
     color: #fff;
     padding: 16px 40px;
     border-radius: 99px;
@@ -127,6 +127,7 @@ nav {
 .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 20px 40px -10px rgba(56, 189, 248, 0.7);
+    background: #5bc9fa;
 }
 
 .btn-outline {
@@ -155,27 +156,14 @@ nav {
     background: var(--bg-card);
     padding: 48px;
     border-radius: 24px;
-    border: 1px solid var(--border);
+    border: none;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
 }
 
-.feature-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--gradient);
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
 .feature-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(255, 255, 255, 0.1);
     box-shadow: var(--glow);
 }
 
@@ -402,4 +390,85 @@ footer {
 .made-with-badge strong {
     color: #fff;
     font-weight: 700;
+}
+
+/* Content Boxes (Download, Contact) */
+.download-box,
+.form-box {
+    background: var(--bg-card);
+    padding: 60px;
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    max-width: 600px;
+    margin: 60px auto;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.download-box {
+    text-align: center;
+}
+
+.download-box::before,
+.form-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gradient);
+    opacity: 0.5;
+}
+
+.form-box h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.5rem;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-left: 4px;
+}
+
+/* Enhancing inputs */
+input,
+textarea {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+input:focus,
+textarea:focus {
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
+}
+
+/* Status Messages */
+.success-message {
+    text-align: center;
+    padding: 40px;
+}
+
+.success-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
