@@ -55,7 +55,7 @@ on request to "/"
                 section class="hero"
                     h1 "Automation logic for Humans, Code like you think."
                     p "Build file systems, web apps, and system automations in plain English. No semicolons, no boilerplate."
-                    p style="color: #38bdf8; font-weight: bold; margin-top: 20px; font-size: 1.1rem" "btw this website was written using ShellLite"
+                    p style="color: #38bdf8; font-weight: bold; margin-top: 20px; font-size: 1.1rem" "Built entirely with ShellLite — yes, including this website."
                     div
                         a "Download Now" href="/download" class="btn"
                         a "View Documentation" href="/docs" class="btn btn-outline" style="margin-left: 15px"
