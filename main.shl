@@ -1,0 +1,141 @@
+use "compiler.shl"
+
+serve files from "public" at "/static"
+
+define page Head using title_text
+    head
+        title title_text
+        link rel="stylesheet" href="/static/style.css"
+        meta charset="utf-8"
+        meta name="viewport" content="width=device-width, initial-scale=1.0"
+
+define page Navbar
+    header
+        div class="container"
+            nav
+                div class="logo" "ShellLite"
+                div class="nav-links"
+                    a href="/" "Home"
+                    a href="/compiler" "Compiler"
+                    a href="/docs" "Docs"
+                    a href="/contact" "Contact"
+                    a href="https://github.com/Shrey-N/ShellLite" "GitHub"
+
+define page Footer
+    footer
+        div class="container"
+            p 
+                span "This website was written using "
+                strong "ShellLite only. "
+                span style="font-style: italic; color: #58a6ff;" "Code like you think."
+            p style="font-size: 0.8em; margin-top: 10px;" "© 2025-Present Shrey Naithani"
+
+define page Home
+    html
+        Head "ShellLite - Code like you think"
+        body
+            Navbar
+            
+            div class="hero"
+                div class="container"
+                    h1 "Code like you think."
+                    p class="tagline" "ShellLite is a programming language designed to be as readable as plain English. It strips away the complex syntax of traditional languages and replaces it with natural, human-friendly commands. Whether you are automating your desktop, building a website, or just learning to code, ShellLite makes it simple."
+                    
+                    div class="action-buttons"
+                        a href="/compiler" class="btn btn-primary" "Try Online Compiler"
+                        a href="/static/ShellLite.exe" class="btn btn-outline" "Download ShellLite (.exe)"
+
+            div class="container"
+                div class="grid"
+                    div class="card"
+                        h3 "Readable"
+                        p "ShellLite reads like a story, making code accessible to everyone."
+                    div class="card"
+                        h3 "Powerful"
+                        p "Built on Python, giving you access to a massive ecosystem of libraries."
+                    div class="card"
+                        h3 "Versatile"
+                        p "From simple automation scripts to full web servers and GUI apps."
+
+            Footer
+
+define page DocsList
+    html
+        Head "Documentation - ShellLite"
+        body
+            Navbar
+            
+            div class="container" style="padding-top: 40px;"
+                h1 "Documentation"
+                p class="tagline" "Master the art of ShellLite."
+                
+                div class="grid"
+                    div class="card"
+                        h3 "Getting Started"
+                        div class="docs-list"
+                            a href="/docs/01_Getting_Started.md" "01. Getting Started"
+                            a href="/docs/02_Language_Basics.md" "02. Language Basics"
+                            a href="/docs/03_Control_Flow.md" "03. Control Flow"
+                            a href="/docs/04_Data_Structures.md" "04. Data Structures"
+                            a href="/docs/05_Functions_and_OOP.md" "05. Functions & OOP"
+                    
+                    div class="card"
+                        h3 "Advanced & Reference"
+                        div class="docs-list"
+                            a href="/docs/06_Modules_and_StdLib.md" "06. Modules & StdLib"
+                            a href="/docs/07_System_Mastery.md" "07. System Mastery"
+                            a href="/docs/08_Web_Development.md" "08. Web Development"
+
+            Footer
+
+define page DocViewer
+    html
+        head
+            title "Doc Viewer - ShellLite"
+            link rel="stylesheet" href="/static/style.css"
+            script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+            script src="/static/doc_viewer.js"
+        body
+            Navbar
+            
+            div class="container" style="padding: 40px 20px; min-height: 60vh;"
+                div id="content" class="markdown-body" "Loading documentation..."
+
+            Footer
+
+define page Contact
+    html
+        Head "Contact Us - ShellLite"
+        body
+            Navbar
+            
+            div class="container" style="padding-top: 40px; min-height: 60vh;"
+                h1 "Contact Us"
+                p class="tagline" "We are here to help."
+                
+                div class="card" style="max-width: 600px; margin: 0 auto;"
+                    h3 "Get in touch"
+                    p "For any inquiries, bug reports, or feedback:"
+                    div style="margin-top: 20px;"
+                        p 
+                            strong "Email: " 
+                            span "contact@shelllite.tech"
+                        p 
+                            strong "GitHub: " 
+                            a href="https://github.com/Shrey-N/ShellLite/issues" "Open an Issue"
+            
+            Footer
+
+when someone visits "/"
+    Home
+
+when someone visits "/docs"
+    DocsList
+
+when someone visits "/docs/:file"
+    DocViewer
+
+when someone visits "/contact"
+    Contact
+
+start server on port 8080

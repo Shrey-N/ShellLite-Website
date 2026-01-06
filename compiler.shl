@@ -1,0 +1,43 @@
+define page CompilerPage
+    html
+        head
+            title "ShellLite Online Compiler"
+            link rel="stylesheet" href="/static/style.css"
+        body
+            header
+                div class="container"
+                    nav
+                        div class="logo" "ShellLite"
+                        div class="nav-links"
+                            a href="/" "Home"
+                            a href="/compiler" class="active" "Compiler"
+                            a href="/docs" "Docs"
+
+            div class="container"
+                div class="editor-container"
+                    div class="editor-pane"
+                        div class="pane-header"
+                            h3 "Code Editor"
+                            button class="run-btn" onclick="runCode()" "Run Code >"
+                        textarea id="code-input" "say 'Btw this compiler was also written purely using ShellLite :)'"
+                    
+                    div class="output-pane"
+                        div class="pane-header"
+                            h3 "Output"
+                        div id="output-display" class="output-content" "// Output will appear here..."
+
+            script src="/static/compiler.js"
+            
+            footer
+                div class="container"
+                    p "Powered by ShellLite Web Runtime. We wrote everything using ShellLite only."
+
+when someone visits "/compiler"
+    CompilerPage
+
+when someone submits to "/api/run"
+    req_data = request.json
+    code = req_data["code"]
+    write code to file "temp_run.shl"
+    result = run ".\public\shl.exe temp_run.shl"
+    return result
