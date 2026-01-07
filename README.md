@@ -1,20 +1,30 @@
 # ShellLite Website
 
-This is the official website for ShellLite, written entirely in ShellLite itself.
+The official website for **ShellLite**, written **100% purely in ShellLite**.
 
-## How to Run
+🚀 **Live Demo:** [shelllite.tech](http://shelllite.tech)
 
-1. Install ShellLite globally:
-   ```powershell
+## About
+This project demonstrates the capabilities of ShellLite as a web server language. Everything from the routing to the compiler backend is implemented using `shl` scripts.
+
+## Running Locally
+
+1. **Install ShellLite**:
+   ```bash
    pip install shell-lite
    ```
-2. Run the website:
-   ```powershell
+
+2. **Run the Server**:
+   ```bash
    shl run main.shl
    ```
-3. Visit `http://localhost:8080`.
 
-## Features
-- **Online Compiler**: Try ShellLite code in the browser.
-- **Documentation**: Read docs dynamically loaded.
-- **Pure ShellLite Backend**: The server logic is all in `main.shl` and `compiler.shl`.
+3. **Visit**: `http://localhost:8080`
+
+## Structure
+- `main.shl`: The core web server and router.
+- `compiler.shl`: The logic for the online compiler.
+- `public/`: Static assets (CSS, JS, binaries).
+
+---
+*Powered by [ShellLite](https://github.com/Shrey-N/shell-lite).*
