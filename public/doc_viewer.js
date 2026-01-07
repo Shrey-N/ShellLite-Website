@@ -2,7 +2,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const path = window.location.pathname.split('/').pop();
     const contentDiv = document.getElementById('content');
 
-    // If we are at /docs root or just /docs/, we might want to hide loader or handle differently
     if (!path || path === 'docs') return;
 
     fetch('/static/docs/' + path)
