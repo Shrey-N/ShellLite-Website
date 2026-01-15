@@ -37,7 +37,16 @@ when someone visits "/compiler"
 
 when someone submits to "/api/run"
     req_data = request.json
-    code = req_data["code"]
-    write code to file "temp_run.shl"
-    result = run "python3 -m shell_lite.main temp_run.shl"
+    # Generate unique filename to avoid concurrency issues
+    id = randint(1000, 999999)
+    filename = "run_" + str(id) + ".shl"
+    
+    write code to file filename
+    
+    # Use 'shl' directly for cross-platform compatibility
+    result = run "shl " + filename
+    
+    # Cleanup
+    delete filename
+    
     return result
