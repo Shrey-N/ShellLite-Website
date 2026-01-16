@@ -70,9 +70,10 @@ when someone submits to "/api/run"
         result = "Server Error: " + str(e)
 
     
-    # Cleanup
     try:
         os.remove(filename)
-    catch ign: pass
+    catch ign:
+        # ignore error if file not found
+        "" 
     
     return result
