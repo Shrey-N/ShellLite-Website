@@ -36,28 +36,23 @@ when someone visits "/compiler"
     CompilerPage
 
 when someone submits to "/api/run"
-    from random import randint
-    import os
-    import sys
+    use python "random"
+    use python "os"
+    use python "sys"
+    use python "subprocess"
 
     req_data = request.json
     code = req_data["code"]
     
     # Generate unique filename to avoid concurrency issues
-    id = randint(1000, 999999)
+    id = random.randint(1000, 999999)
     filename = "run_" + str(id) + ".shl"
     
     write code to file filename
     
-    import os
-    import sys
-    
     result = "No output returned by compiler."
 
     try:
-        # Use Python to run module safely with timeout
-        import subprocess
-        
         # Use sys.executable to ensure we use the same python that has shell_lite installed
         cmd = [sys.executable, "-m", "shell_lite.main", "run", filename]
         
