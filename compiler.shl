@@ -43,6 +43,7 @@ when someone submits to "/api/run"
     
     write code to file filename
     
+    import os
     try:
         # Use Python to run module safely with timeout
         import subprocess
@@ -65,13 +66,13 @@ when someone submits to "/api/run"
         else:
              result = proc.stdout
              
-    except subprocess.TimeoutExpired:
-        result = "Error: Execution timed out (limit: 5s)."
-    except Exception as e:
+    catch e:
         result = "Server Error: " + str(e)
 
     
     # Cleanup
-    delete filename
+    try:
+        os.remove(filename)
+    catch ign: pass
     
     return result
