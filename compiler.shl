@@ -36,6 +36,7 @@ when someone visits "/compiler"
     CompilerPage
 
 when someone submits to "/api/run"
+    return "DEBUG: Compiler is running correctly."
     use python "random"
     use python "os"
     use python "sys"
