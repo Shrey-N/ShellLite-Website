@@ -43,8 +43,33 @@ when someone submits to "/api/run"
     
     write code to file filename
     
-    # Use 'shl' directly for cross-platform compatibility
-    result = run "shl " + filename
+    try:
+        # Use Python to run module safely with timeout
+        import subprocess
+        
+        # Determine executable: if we are running from source, use sys.executable + -m shell_lite.main
+        # If frozen, use shl.exe? User said "shl" command not found in one context.
+        # Best to blindly trust 'python -m shell_lite.main' if available, or just 'shl' if strictly installed.
+        # But for robustness on server where python is present:
+        cmd = ["python3", "-m", "shell_lite.main", "run", filename]
+        
+        # Run with timeout to prevent infinite loops (e.g. 5 seconds)
+        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
+        
+        if proc.returncode != 0:
+             # If stderr has something, show it
+             if proc.stderr:
+                 result = "Error:\n" + proc.stderr
+             else:
+                 result = proc.stdout # sometimes errors are in stdout due to print logic
+        else:
+             result = proc.stdout
+             
+    except subprocess.TimeoutExpired:
+        result = "Error: Execution timed out (limit: 5s)."
+    except Exception as e:
+        result = "Server Error: " + str(e)
+
     
     # Cleanup
     delete filename

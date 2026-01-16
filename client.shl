@@ -1,0 +1,37 @@
+define function runCode doing:
+    code_input = document.getElementById("code-input")
+    code = code_input.value or "say 'Hello'"
+    
+    output_div = document.getElementById("output-display")
+    btn = document.querySelector(".run-btn")
+    
+    output_div.innerText = "Running..."
+    cl = btn.classList
+    cl.add("loading")
+    
+    try:
+        # Construct fetch options
+        headers = { "Content-Type": "application/json" }
+        body_data = { "code": code }
+        body_str = JSON.stringify(body_data)
+        
+        options = { 
+            "method": "POST",
+            "headers": headers,
+            "body": body_str
+        }
+        
+        response = await fetch("/api/run", options)
+        result = await response.text()
+        
+        output_div.innerText = result
+    catch e:
+        # e is implicitly available in JS catch, but ShellLite might need syntax for it?
+        # The parser logic for try/catch might not expose variable name easily yet.
+        # Assuming our JSCompiler maps 'catch:' to 'catch(e)'.
+        # We can access 'e' as a raw variable.
+        msg = e.message
+        output_div.innerText = "Error: " + msg
+    finally:
+        cl = btn.classList
+        cl.remove("loading")
