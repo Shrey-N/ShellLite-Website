@@ -36,6 +36,7 @@ when someone visits "/compiler"
     CompilerPage
 
 when someone submits to "/api/run"
+    print("DEBUG: Route /api/run triggered")
     use python "random"
     use python "os"
     use python "sys"
@@ -44,7 +45,6 @@ when someone submits to "/api/run"
     req_data = request.json
     code = req_data["code"]
     
-    # Generate unique filename to avoid concurrency issues
     id = random.randint(1000, 999999)
     filename = "run_" + str(id) + ".shl"
     
@@ -53,18 +53,15 @@ when someone submits to "/api/run"
     result = "No output returned by compiler."
 
     try:
-        # Use sys.executable to ensure we use the same python that has shell_lite installed
         cmd = [sys.executable, "-m", "shell_lite.main", "run", filename]
         
-        # Run with timeout to prevent infinite loops (e.g. 5 seconds)
         proc = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
         
         if proc.returncode != 0:
-             # If stderr has something, show it
              if proc.stderr:
                  result = "Error:\n" + proc.stderr
              else:
-                 result = proc.stdout # sometimes errors are in stdout due to print logic
+                 result = proc.stdout
         else:
              result = proc.stdout
              if result == "":
