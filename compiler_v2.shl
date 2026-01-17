@@ -40,7 +40,7 @@ when someone submits to "/api/run"
     use python "subprocess"
     
     # Force flush to ensure logs appear in nohup.out
-    print("DEBUG: v2 Route triggered", flush=True)
+    print("DEBUG: v2 Route triggered")
 
     use python "random"
     use python "os"
@@ -58,7 +58,7 @@ when someone submits to "/api/run"
     
     result = "No output returned by compiler."
 
-    print("DEBUG: Running subprocess", flush=True)
+    print("DEBUG: Running subprocess")
     
     # Explicit PIPE usage
     cmd = [sys.executable, "-m", "shell_lite.main", "run", filename]
@@ -70,8 +70,8 @@ when someone submits to "/api/run"
     err = proc.stderr
     out = proc.stdout
     
-    print("DEBUG: Subprocess finished. RC=" + str(rc), flush=True)
-    print("DEBUG: STDOUT=" + str(out), flush=True)
+    print("DEBUG: Subprocess finished. RC=" + str(rc))
+    print("DEBUG: STDOUT=" + str(out))
     
     if rc != 0:
          if err:
@@ -83,14 +83,14 @@ when someone submits to "/api/run"
          if result == "":
              result = "Executed successfully (No Output)"
     
-    print("DEBUG: Result calculated: " + str(result), flush=True)
+    print("DEBUG: Result calculated: " + str(result))
     
     # Simple cleanup using alias to avoid double dot
     exists = os_path.exists(filename)
     if exists:
         os.remove(filename)
-        print("DEBUG: File removed", flush=True)
+        print("DEBUG: File removed")
     
-    print("DEBUG: Returning result now", flush=True)
+    print("DEBUG: Returning result now")
     
     return result
