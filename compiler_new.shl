@@ -36,8 +36,7 @@ when someone visits "/compiler"
     CompilerPage
 
 when someone submits to "/api/run"
-    print("DEBUG: Route /api/run triggered")
-    use python "random"
+    return "DEBUG_CONFIRMED"
     use python "os"
     use python "sys"
     use python "subprocess"
