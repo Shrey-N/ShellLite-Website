@@ -74,43 +74,6 @@ when someone submits to "/api/run"
         result = "Server Error: " + str(e)
     
     try:
-        if os.path.exists(filename):
-            os.remove(filename)
-    catch ign:
-        # ignore error if file not found
-        "" 
-    
-    return result
-
-
-    
-    id = random.randint(1000, 999999)
-    filename = "run_" + str(id) + ".shl"
-    
-    write code to file filename
-    
-    result = "No output returned by compiler."
-
-    try:
-        cmd = [sys.executable, "-m", "shell_lite.main", "run", filename]
-        
-        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
-        
-        if proc.returncode != 0:
-             if proc.stderr:
-                 result = "Error:\n" + proc.stderr
-             else:
-                 result = proc.stdout
-        else:
-             result = proc.stdout
-             if result == "":
-                 result = "Executed successfully (No Output)"
-             
-    catch e:
-        result = "Server Error: " + str(e)
-
-    
-    try:
         os.remove(filename)
     catch ign:
         # ignore error if file not found
