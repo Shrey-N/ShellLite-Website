@@ -36,11 +36,14 @@ when someone visits "/compiler"
     CompilerPage
 
 when someone submits to "/api/run"
-    print("DEBUG: v2 Route /api/run triggered (Fresh Load)")
-    use python "random"
-    use python "os"
     use python "sys"
     use python "subprocess"
+    
+    # Force flush to ensure logs appear in nohup.out
+    print("DEBUG: v2 Route triggered", flush=True)
+
+    use python "random"
+    use python "os"
     # Workaround for double-dot access issue
     use python "os.path" as os_path
 
@@ -55,16 +58,20 @@ when someone submits to "/api/run"
     
     result = "No output returned by compiler."
 
-    # Direct execution without try-catch to avoid interpreter bugs
+    print("DEBUG: Running subprocess", flush=True)
+    
+    # Explicit PIPE usage
     cmd = [sys.executable, "-m", "shell_lite.main", "run", filename]
     
-    proc = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
+    # We use subprocess.PIPE directly
+    proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=5)
     
     rc = proc.returncode
     err = proc.stderr
     out = proc.stdout
     
-    print("DEBUG: Subprocess finished")
+    print("DEBUG: Subprocess finished. RC=" + str(rc), flush=True)
+    print("DEBUG: STDOUT=" + str(out), flush=True)
     
     if rc != 0:
          if err:
@@ -76,13 +83,14 @@ when someone submits to "/api/run"
          if result == "":
              result = "Executed successfully (No Output)"
     
-    print("DEBUG: Result calculated: " + str(result))
+    print("DEBUG: Result calculated: " + str(result), flush=True)
     
     # Simple cleanup using alias to avoid double dot
     exists = os_path.exists(filename)
     if exists:
         os.remove(filename)
-        print("DEBUG: File removed")
+        print("DEBUG: File removed", flush=True)
     
-    print("DEBUG: Returning result")
+    print("DEBUG: Returning result now", flush=True)
+    
     return result
