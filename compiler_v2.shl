@@ -58,36 +58,23 @@ when someone submits to "/api/run"
     
     result = "No output returned by compiler."
 
-    print("DEBUG: Running subprocess")
+    print("DEBUG: Executing via os.popen")
     
-    # Debug vars
-    # print("DEBUG: sys.executable=" + str(sys.executable))
+    # Use os.popen which avoids kwargs issues and variable assignment issues
+    # Capture stderr by redirection
+    # Quote executable path just in case
+    cmd_str = '"' + sys.executable + '" -m shell_lite.main run ' + filename + ' 2>&1'
     
-    # explicit assignment to isolate property access
-    my_runner = subprocess.run
-    # print("DEBUG: my_runner type=" + str(type(my_runner))) 
+    stream = os.popen(cmd_str)
+    result = stream.read()
+    stream.close()
     
-    # We use subprocess.PIPE directly
-    proc = my_runner(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=true, timeout=5)
+    print("DEBUG: Result length=" + str(result.length))
     
-    rc = proc.returncode
-    err = proc.stderr
-    out = proc.stdout
+    if result == "":
+         result = "Executed successfully (No Output)"
     
-    print("DEBUG: Subprocess finished. RC=" + str(rc))
-    print("DEBUG: STDOUT=" + str(out))
-    
-    if rc != 0:
-         if err:
-             result = "Error:\n" + err
-         else:
-             result = out
-    else:
-         result = out
-         if result == "":
-             result = "Executed successfully (No Output)"
-    
-    print("DEBUG: Result calculated: " + str(result))
+    print("DEBUG: Result calculated")
     
     # Simple cleanup using alias to avoid double dot
     exists = os_path.exists(filename)
