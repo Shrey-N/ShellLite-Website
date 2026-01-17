@@ -1,0 +1,88 @@
+define page CompilerPage
+    html
+        head
+            title "ShellLite Online Compiler"
+            link rel="stylesheet" href="/static/style.css"
+        body
+            header
+                div class="container"
+                    nav
+                        div class="logo" "ShellLite"
+                        div class="nav-links"
+                            a href="/" "Home"
+                            a href="/compiler" class="active" "Compiler"
+                            a href="/docs" "Docs"
+
+            div class="container"
+                div class="editor-container"
+                    div class="editor-pane"
+                        div class="pane-header"
+                            h3 "Code Editor"
+                            button class="run-btn" onclick="runCode()" "Run Code >"
+                        textarea id="code-input" "say 'Btw this compiler was also written purely using ShellLite :)'"
+                    
+                    div class="output-pane"
+                        div class="pane-header"
+                            h3 "Output"
+                        div id="output-display" class="output-content" "// Output will appear here..."
+
+            script src="/static/compiler.js"
+            
+            footer
+                div class="container"
+                    p "Powered by ShellLite Web Runtime. We wrote everything using ShellLite only."
+
+when someone visits "/compiler"
+    CompilerPage
+
+when someone submits to "/api/run"
+    print("DEBUG: v2 Route /api/run triggered (Fresh Load)")
+    use python "random"
+    use python "os"
+    use python "sys"
+    use python "subprocess"
+    # Workaround for double-dot access issue
+    use python "os.path" as os_path
+
+    req_data = request.json
+    code = req_data["code"]
+    
+    # Generate unique filename
+    id = random.randint(1000, 999999)
+    filename = "run_" + str(id) + ".shl"
+    
+    write code to file filename
+    
+    result = "No output returned by compiler."
+
+    # Direct execution without try-catch to avoid interpreter bugs
+    cmd = [sys.executable, "-m", "shell_lite.main", "run", filename]
+    
+    proc = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
+    
+    rc = proc.returncode
+    err = proc.stderr
+    out = proc.stdout
+    
+    print("DEBUG: Subprocess finished")
+    
+    if rc != 0:
+         if err:
+             result = "Error:\n" + err
+         else:
+             result = out
+    else:
+         result = out
+         if result == "":
+             result = "Executed successfully (No Output)"
+    
+    print("DEBUG: Result calculated: " + str(result))
+    
+    # Simple cleanup using alias to avoid double dot
+    exists = os_path.exists(filename)
+    if exists:
+        os.remove(filename)
+        print("DEBUG: File removed")
+    
+    print("DEBUG: Returning result")
+    return result
