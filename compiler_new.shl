@@ -41,7 +41,7 @@ when someone submits to "/api/run"
     use python "sys"
     use python "subprocess"
     # Workaround for double-dot access issue
-    use python "os.path" as "os_path"
+    use python "os.path" as os_path
 
     req_data = request.json
     code = req_data["code"]
