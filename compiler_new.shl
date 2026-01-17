@@ -57,18 +57,23 @@ when someone submits to "/api/run"
     
     proc = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
     
-    if proc.returncode != 0:
-         if proc.stderr:
-             result = "Error:\n" + proc.stderr
+    rc = proc.returncode
+    err = proc.stderr
+    out = proc.stdout
+    
+    if rc != 0:
+         if err:
+             result = "Error:\n" + err
          else:
-             result = proc.stdout
+             result = out
     else:
-         result = proc.stdout
+         result = out
          if result == "":
              result = "Executed successfully (No Output)"
     
     # Simple cleanup
-    if os.path.exists(filename):
+    exists = os.path.exists(filename)
+    if exists:
         os.remove(filename)
     
     return result
