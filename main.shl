@@ -1,4 +1,4 @@
-use "compiler.shl"
+use "compiler_new.shl"
 
 serve files from "public" at "/static"
 

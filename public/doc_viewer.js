@@ -13,7 +13,7 @@ window.addEventListener('DOMContentLoaded', () => {
             if (typeof marked !== 'undefined') {
                 contentDiv.innerHTML = marked.parse(text);
             } else {
-                contentDiv.innerText = text; // Fallback
+                contentDiv.innerText = text;
             }
         })
         .catch(err => {
