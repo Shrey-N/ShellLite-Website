@@ -63,6 +63,8 @@ when someone submits to "/api/run"
     err = proc.stderr
     out = proc.stdout
     
+    print("DEBUG: Subprocess finished")
+    
     if rc != 0:
          if err:
              result = "Error:\n" + err
@@ -73,9 +75,13 @@ when someone submits to "/api/run"
          if result == "":
              result = "Executed successfully (No Output)"
     
+    print("DEBUG: Result calculated: " + str(result))
+    
     # Simple cleanup using alias to avoid double dot
     exists = os_path.exists(filename)
     if exists:
         os.remove(filename)
+        print("DEBUG: File removed")
     
+    print("DEBUG: Returning result")
     return result
