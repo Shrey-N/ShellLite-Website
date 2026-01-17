@@ -60,11 +60,12 @@ when someone submits to "/api/run"
 
     print("DEBUG: Running subprocess")
     
-    # Explicit PIPE usage
-    cmd = [sys.executable, "-m", "shell_lite.main", "run", filename]
+    # Explicit PIPE usage workaround for MethodCall bug
+    # (MethodCall in interpreter drops kwargs, but Call supports them)
+    run_cmd = subprocess.run
     
     # We use subprocess.PIPE directly
-    proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=5)
+    proc = run_cmd(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=5)
     
     rc = proc.returncode
     err = proc.stderr
