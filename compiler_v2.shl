@@ -38,10 +38,6 @@ when someone visits "/compiler"
 when someone submits to "/api/run"
     use python "sys"
     use python "subprocess"
-    
-    # Force flush to ensure logs appear in nohup.out
-    print("DEBUG: v2 Route triggered")
-
     use python "random"
     use python "os"
     # Workaround for double-dot access issue
@@ -58,8 +54,6 @@ when someone submits to "/api/run"
     
     result = "No output returned by compiler."
 
-    print("DEBUG: Executing via os.popen")
-    
     # Use os.popen which avoids kwargs issues and variable assignment issues
     # Capture stderr by redirection
     # Quote executable path just in case
@@ -69,19 +63,12 @@ when someone submits to "/api/run"
     result = stream.read()
     stream.close()
     
-    print("DEBUG: Result length=" + str(result.length))
-    
     if result == "":
          result = "Executed successfully (No Output)"
-    
-    print("DEBUG: Result calculated")
     
     # Simple cleanup using alias to avoid double dot
     exists = os_path.exists(filename)
     if exists:
         os.remove(filename)
-        print("DEBUG: File removed")
-    
-    print("DEBUG: Returning result now")
     
     return result
