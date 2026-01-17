@@ -65,7 +65,7 @@ when someone submits to "/api/run"
     run_cmd = subprocess.run
     
     # We use subprocess.PIPE directly
-    proc = run_cmd(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=5)
+    proc = run_cmd(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=true, timeout=5)
     
     rc = proc.returncode
     err = proc.stderr
