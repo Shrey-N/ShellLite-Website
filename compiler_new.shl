@@ -40,6 +40,8 @@ when someone submits to "/api/run"
     use python "os"
     use python "sys"
     use python "subprocess"
+    # Workaround for double-dot access issue
+    use python "os.path" as "os_path"
 
     req_data = request.json
     code = req_data["code"]
@@ -71,8 +73,8 @@ when someone submits to "/api/run"
          if result == "":
              result = "Executed successfully (No Output)"
     
-    # Simple cleanup
-    exists = os.path.exists(filename)
+    # Simple cleanup using alias to avoid double dot
+    exists = os_path.exists(filename)
     if exists:
         os.remove(filename)
     
