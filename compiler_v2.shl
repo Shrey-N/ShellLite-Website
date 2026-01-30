@@ -18,12 +18,16 @@ define page CompilerPage
                     div class="editor-pane"
                         div class="pane-header"
                             h3 "Code Editor"
-                            button class="run-btn" onclick="runCode()" "Run Code >"
-                        textarea id="code-input" "say 'Btw this compiler was also written purely using ShellLite :)'"
+                            div class="toolbar-buttons"
+                                button class="run-btn" onclick="runCode()" "Run (Ctrl+Enter)"
+                        div class="editor-wrapper"
+                            div id="line-numbers" class="line-numbers" "1"
+                            textarea id="code-input" "say 'Btw this compiler was also written purely using ShellLite :)'"
                     
                     div class="output-pane"
                         div class="pane-header"
                             h3 "Output"
+                            button class="clear-btn" onclick="clearOutput()" "Clear"
                         div id="output-display" class="output-content" "// Output will appear here..."
 
             script src="/static/compiler.js"

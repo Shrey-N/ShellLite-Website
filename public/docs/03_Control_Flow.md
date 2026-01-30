@@ -17,6 +17,15 @@ else
     say "Please try again."
 ```
 
+### Conditional Keywords
+| Keyword | Description |
+|:---|:---|
+| `if` | Execute block if condition is true |
+| `elif` | Execute if previous conditions were false and this is true |
+| `else` | Execute if all previous conditions were false |
+| `then` | Optional keyword after condition (for readability) |
+| `do` | Optional keyword after condition (for readability) |
+
 ### Natural Comparisons
 You can use English words instead of math symbols if you prefer.
 
@@ -33,6 +42,12 @@ Example:
 ```javascript
 if the age is at least 18
     say "Adult"
+
+if score is more than 100
+    say "High score!"
+
+if name is "Alice"
+    say "Welcome, Alice!"
 ```
 
 ### Unless
@@ -40,6 +55,12 @@ if the age is at least 18
 ```javascript
 tired = no
 unless tired
+    say "Let's keep coding!"
+```
+
+This is equivalent to:
+```javascript
+if not tired
     say "Let's keep coding!"
 ```
 
@@ -60,6 +81,8 @@ when day
         say "Just another day."
 ```
 
+The `otherwise` clause is optional and acts as a default case when no other conditions match.
+
 ## 3. Loops
 Loops let you repeat code.
 
@@ -70,14 +93,31 @@ repeat 3 times
     say "Hip Hip Hooray!"
 ```
 
-### While / Until
-Runs *while* a condition is true, or *until* a condition becomes true.
+You can also use it without `times`:
+```javascript
+repeat 5
+    say "Hello"
+```
+
+### While
+Runs *while* a condition is true.
 ```javascript
 count = 5
 while count > 0
     say count
     count = count - 1
+```
 
+Natural language alternative:
+```javascript
+doing as long as count > 0
+    say count
+    count -= 1
+```
+
+### Until
+Runs *until* a condition becomes true (opposite of while).
+```javascript
 battery = 0
 until battery == 100
     say "Charging..."
@@ -94,11 +134,32 @@ for i in range 1 5
 # Prints: 1, 2, 3, 4, 5
 ```
 
+**Range with step:**
+```javascript
+for i in range 0 10 2
+    say i
+# Prints: 0, 2, 4, 6, 8, 10
+```
+
 **Lists:**
 ```javascript
 colors = ["red", "blue", "green"]
 for color in colors
     say color
+```
+
+**Dictionaries:**
+```javascript
+user = {"name": "Alice", "age": 30}
+for key in user
+    say key + ": " + str(user[key])
+```
+
+### For Each
+Alternative natural syntax:
+```javascript
+for each item in items
+    say item
 ```
 
 ### Forever Loop
@@ -109,18 +170,27 @@ forever
     wait 1 second
 ```
 
-### Loop Control
-- `stop` or `break`: Exits the loop immediately.
-- `skip` or `continue`: Skips the rest of the current turn and goes to the next one.
+Use `stop` or `break` to exit a forever loop when needed.
+
+### Loop Control Keywords
+| Keyword | Alias | Description |
+|:---|:---|:---|
+| `stop` | `break` | Exits the loop immediately |
+| `skip` | `continue` | Skips the rest of the current iteration |
 
 ```javascript
 repeat 10 times
     if something_bad_happened
-        stop
+        stop  # Exit the loop
+
+for i in range 1 10
+    if i == 5
+        skip  # Skip printing 5
+    say i
 ```
 
 ## 4. Error Handling (Try/Catch)
-Real world programs encounter errors. You can handle them gracefully using `try`, `catch`, and `always`.
+Real world programs encounter errors. You can handle them gracefully using `try`, `catch`, and `always` (or `finally`).
 
 ```javascript
 try
@@ -134,6 +204,24 @@ always
     say "Cleanup complete."
 ```
 
+### Error Handling Keywords
+| Keyword | Alias | Description |
+|:---|:---|:---|
+| `try` | | Begin a block that might throw an error |
+| `catch` | | Handle errors if they occur |
+| `always` | `finally` | Always execute, regardless of error |
+
+### Nested Try/Catch
+```javascript
+try
+    try
+        risky_operation()
+    catch inner_error
+        say "Inner error handled"
+catch outer_error
+    say "Outer error caught"
+```
+
 ## 5. Exiting the Program
 To stop your program completely at any point, use `exit`.
 
@@ -142,6 +230,39 @@ if critical_system_failure
     say in red "Shutting down!"
     exit
 ```
+
+## 6. Pass Statement
+Sometimes you need a placeholder for code you haven't written yet. While ShellLite doesn't have a formal `pass` keyword, you can use an empty block or a comment:
+
+```javascript
+if condition
+    # TODO: implement this later
+```
+
+## 7. Conditional Expressions
+
+ShellLite supports inline conditional expressions:
+
+```javascript
+status = "adult" if age >= 18 else "minor"
+```
+
+## 8. Control Flow Summary
+
+| Statement | Purpose |
+|:---|:---|
+| `if`/`elif`/`else` | Conditional branching |
+| `unless` | Negated conditional |
+| `when`/`is`/`otherwise` | Pattern matching |
+| `repeat N times` | Fixed iteration count |
+| `while` | Loop while condition is true |
+| `until` | Loop until condition becomes true |
+| `for X in Y` | Iterate over collection |
+| `forever` | Infinite loop |
+| `stop`/`break` | Exit loop |
+| `skip`/`continue` | Skip to next iteration |
+| `try`/`catch`/`always` | Error handling |
+| `exit` | Terminate program |
 
 ---
 [Next: Data Structures ->](04_Data_Structures.md)

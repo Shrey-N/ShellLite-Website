@@ -61,7 +61,12 @@ define page Home
 
 define page DocsList
     html
-        Head "Documentation - ShellLite"
+        head
+            title "Documentation - ShellLite"
+            link rel="stylesheet" href="/static/style.css"
+            meta charset="utf-8"
+            meta name="viewport" content="width=device-width, initial-scale=1.0"
+            script src="https://unpkg.com/3d-force-graph"
         body
             Navbar
             
@@ -69,9 +74,14 @@ define page DocsList
                 h1 "Documentation"
                 p class="tagline" "Master the art of ShellLite."
                 
+                div class="graph-section"
+                    h2 "Learning Path"
+                    p "Click a topic to explore. Follow the arrows for recommended learning order."
+                    div id="docs-graph" class="docs-graph-container"
+                
                 div class="grid"
                     div class="card"
-                        h3 "Getting Started"
+                        h3 "Essentials"
                         div class="docs-list"
                             a href="/docs/01_Getting_Started.md" "01. Getting Started"
                             a href="/docs/02_Language_Basics.md" "02. Language Basics"
@@ -80,12 +90,26 @@ define page DocsList
                             a href="/docs/05_Functions_and_OOP.md" "05. Functions & OOP"
                     
                     div class="card"
-                        h3 "Advanced & Reference"
+                        h3 "Advanced Mastery"
                         div class="docs-list"
                             a href="/docs/06_Modules_and_StdLib.md" "06. Modules & StdLib"
                             a href="/docs/07_System_Mastery.md" "07. System Mastery"
                             a href="/docs/08_Web_Development.md" "08. Web Development"
+                            a href="/docs/09_Advanced_Features.md" "09. Advanced Features"
+                            a href="/docs/10_Compilation_and_Performance.md" "10. Compilation"
+                            a href="/docs/11_Testing_and_Debugging.md" "11. Testing & Debugging"
+                    
+                    div class="card"
+                        h3 "Reference & Guides"
+                        div class="docs-list"
+                            a href="/docs/12_API_Reference.md" "12. API Reference"
+                            a href="/docs/13_Security_Guide.md" "13. Security Guide"
+                            a href="/docs/14_Migration_Guide.md" "14. Migration Guide"
+                            a href="/docs/15_Troubleshooting.md" "15. Troubleshooting"
+                            a href="/docs/16_Examples_and_Tutorials.md" "16. Examples"
+                            a href="/docs/17_Best_Practices.md" "17. Best Practices"
 
+            script src="/static/docs_graph.js"
             Footer
 
 define page DocViewer
