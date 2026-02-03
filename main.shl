@@ -9,6 +9,15 @@ define page Head using title_text
         meta charset="utf-8"
         meta name="viewport" content="width=device-width, initial-scale=1.0"
 
+define page HomeHead using title_text
+    head
+        title title_text
+        link rel="stylesheet" href="/static/style.css"
+        meta charset="utf-8"
+        meta name="viewport" content="width=device-width, initial-scale=1.0"
+        script type="application/ld+json" 
+            '{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "ShellLite", "applicationCategory": "DeveloperApplication", "operatingSystem": "Cross-platform", "url": "https://shelllite.tech", "author": { "@type": "Person", "name": "Shrey Naithani", "url": "https://shreyn.tech" }, "description": "An English-like programming language designed for human readability and native LLVM performance.", "license": "https://www.gnu.org/licenses/gpl-3.0.html", "softwareVersion": "0.5.3.2", "offers": { "@type": "Offer", "price": "0.00", "priceCurrency": "USD" }, "codeRepository": "https://github.com/Shrey-N/ShellLite"}'
+
 define page Navbar
     header
         div class="container"
@@ -32,7 +41,7 @@ define page Footer
 
 define page Home
     html
-        Head "ShellLite - Code like you think"
+        HomeHead "ShellLite - Code like you think"
         body
             Navbar
             
@@ -56,6 +65,20 @@ define page Home
                     div class="card"
                         h3 "Versatile"
                         p "From simple automation scripts to full web servers and GUI apps."
+
+            div class="container" style="margin-top: 40px;"
+                h2 "Publications"
+                div class="grid"
+                    div class="card"
+                        h3 "Books"
+                        p "Check out my latest book on ShellLite."
+                        div style="margin-top: 15px;"
+                            a href="https://books2read.com/b/mVpoXM" class="btn btn-outline" "Read Book"
+                    div class="card"
+                        h3 "Research Papers"
+                        div class="docs-list"
+                            a href="https://doi.org/10.5281/zenodo.18385614" "DOI: 10.5281/zenodo.18385614"
+                            a href="https://doi.org/10.5281/zenodo.18228699" "DOI: 10.5281/zenodo.18228699"
 
             Footer
 
@@ -147,6 +170,11 @@ define page Contact
                         p 
                             strong "GitHub: " 
                             a href="https://github.com/Shrey-N/ShellLite/issues" "Open an Issue"
+                        p
+                            strong "Wikidata: "
+                            a href="https://www.wikidata.org/wiki/Q137924590" "Language (Q137924590)"
+                            span " | "
+                            a href="https://www.wikidata.org/wiki/Q137924569" "Author (Q137924569)"
             
             Footer
 
