@@ -58,16 +58,31 @@ when someone submits to "/api/run"
     
     result = "No output returned by compiler."
 
-    # Use os.popen which avoids kwargs issues and variable assignment issues
-    # Capture stderr by redirection
-    # Quote executable path just in case
-    cmd_str = '"' + sys.executable + '" -m shell_lite.main run ' + filename + ' 2>&1'
-    
-    stream = os.popen(cmd_str)
-    result = stream.read()
-    stream.close()
+    # Use subprocess.Popen to capture output with timeout and live reading behavior
+    script = "import subprocess, time, sys; " + 
+             "p = subprocess.Popen(['" + sys.executable.replace('\\', '\\\\') + "', '-m', 'shell_lite.main', 'run', '" + filename + "'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True); " +
+             "start = time.time(); " +
+             "output = ''; " +
+             "while True: " +
+             "    if p.poll() is not None: " +
+             "        output += p.stdout.read(); " +
+             "        break; " +
+             "    line = p.stdout.readline(); " +
+             "    if line: output += line; " +
+             "    if time.time() - start > 2: " +
+             "        p.kill(); " +
+             "        output += '\\n[Execution Timed Out (Limit: 2s)]'; " +
+             "        break; " +
+             "    time.sleep(0.01); " +
+             "print(output)"
+
+    exec_res = os.popen('"' + sys.executable + '" -c "' + script + '"')
+    result = exec_res.read()
+    exec_res.close()
     
     if result == "":
+         result = "Executed successfully (No Output)"
+    elif result.strip() == "None":
          result = "Executed successfully (No Output)"
     
     # Simple cleanup using alias to avoid double dot
